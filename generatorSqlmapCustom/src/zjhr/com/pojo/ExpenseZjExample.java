@@ -1,6 +1,8 @@
 package zjhr.com.pojo;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 public class ExpenseZjExample {
@@ -102,6 +104,32 @@ public class ExpenseZjExample {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
             criteria.add(new Criterion(condition, value1, value2));
+        }
+
+        protected void addCriterionForJDBCDate(String condition, Date value, String property) {
+            if (value == null) {
+                throw new RuntimeException("Value for " + property + " cannot be null");
+            }
+            addCriterion(condition, new java.sql.Date(value.getTime()), property);
+        }
+
+        protected void addCriterionForJDBCDate(String condition, List<Date> values, String property) {
+            if (values == null || values.size() == 0) {
+                throw new RuntimeException("Value list for " + property + " cannot be null or empty");
+            }
+            List<java.sql.Date> dateList = new ArrayList<java.sql.Date>();
+            Iterator<Date> iter = values.iterator();
+            while (iter.hasNext()) {
+                dateList.add(new java.sql.Date(iter.next().getTime()));
+            }
+            addCriterion(condition, dateList, property);
+        }
+
+        protected void addCriterionForJDBCDate(String condition, Date value1, Date value2, String property) {
+            if (value1 == null || value2 == null) {
+                throw new RuntimeException("Between values for " + property + " cannot be null");
+            }
+            addCriterion(condition, new java.sql.Date(value1.getTime()), new java.sql.Date(value2.getTime()), property);
         }
 
         public Criteria andBxidIsNull() {
@@ -324,63 +352,53 @@ public class ExpenseZjExample {
             return (Criteria) this;
         }
 
-        public Criteria andExpdateEqualTo(String value) {
-            addCriterion("expDate =", value, "expdate");
+        public Criteria andExpdateEqualTo(Date value) {
+            addCriterionForJDBCDate("expDate =", value, "expdate");
             return (Criteria) this;
         }
 
-        public Criteria andExpdateNotEqualTo(String value) {
-            addCriterion("expDate <>", value, "expdate");
+        public Criteria andExpdateNotEqualTo(Date value) {
+            addCriterionForJDBCDate("expDate <>", value, "expdate");
             return (Criteria) this;
         }
 
-        public Criteria andExpdateGreaterThan(String value) {
-            addCriterion("expDate >", value, "expdate");
+        public Criteria andExpdateGreaterThan(Date value) {
+            addCriterionForJDBCDate("expDate >", value, "expdate");
             return (Criteria) this;
         }
 
-        public Criteria andExpdateGreaterThanOrEqualTo(String value) {
-            addCriterion("expDate >=", value, "expdate");
+        public Criteria andExpdateGreaterThanOrEqualTo(Date value) {
+            addCriterionForJDBCDate("expDate >=", value, "expdate");
             return (Criteria) this;
         }
 
-        public Criteria andExpdateLessThan(String value) {
-            addCriterion("expDate <", value, "expdate");
+        public Criteria andExpdateLessThan(Date value) {
+            addCriterionForJDBCDate("expDate <", value, "expdate");
             return (Criteria) this;
         }
 
-        public Criteria andExpdateLessThanOrEqualTo(String value) {
-            addCriterion("expDate <=", value, "expdate");
+        public Criteria andExpdateLessThanOrEqualTo(Date value) {
+            addCriterionForJDBCDate("expDate <=", value, "expdate");
             return (Criteria) this;
         }
 
-        public Criteria andExpdateLike(String value) {
-            addCriterion("expDate like", value, "expdate");
+        public Criteria andExpdateIn(List<Date> values) {
+            addCriterionForJDBCDate("expDate in", values, "expdate");
             return (Criteria) this;
         }
 
-        public Criteria andExpdateNotLike(String value) {
-            addCriterion("expDate not like", value, "expdate");
+        public Criteria andExpdateNotIn(List<Date> values) {
+            addCriterionForJDBCDate("expDate not in", values, "expdate");
             return (Criteria) this;
         }
 
-        public Criteria andExpdateIn(List<String> values) {
-            addCriterion("expDate in", values, "expdate");
+        public Criteria andExpdateBetween(Date value1, Date value2) {
+            addCriterionForJDBCDate("expDate between", value1, value2, "expdate");
             return (Criteria) this;
         }
 
-        public Criteria andExpdateNotIn(List<String> values) {
-            addCriterion("expDate not in", values, "expdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andExpdateBetween(String value1, String value2) {
-            addCriterion("expDate between", value1, value2, "expdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andExpdateNotBetween(String value1, String value2) {
-            addCriterion("expDate not between", value1, value2, "expdate");
+        public Criteria andExpdateNotBetween(Date value1, Date value2) {
+            addCriterionForJDBCDate("expDate not between", value1, value2, "expdate");
             return (Criteria) this;
         }
 
@@ -534,63 +552,53 @@ public class ExpenseZjExample {
             return (Criteria) this;
         }
 
-        public Criteria andAccountdateEqualTo(String value) {
-            addCriterion("accountDate =", value, "accountdate");
+        public Criteria andAccountdateEqualTo(Date value) {
+            addCriterionForJDBCDate("accountDate =", value, "accountdate");
             return (Criteria) this;
         }
 
-        public Criteria andAccountdateNotEqualTo(String value) {
-            addCriterion("accountDate <>", value, "accountdate");
+        public Criteria andAccountdateNotEqualTo(Date value) {
+            addCriterionForJDBCDate("accountDate <>", value, "accountdate");
             return (Criteria) this;
         }
 
-        public Criteria andAccountdateGreaterThan(String value) {
-            addCriterion("accountDate >", value, "accountdate");
+        public Criteria andAccountdateGreaterThan(Date value) {
+            addCriterionForJDBCDate("accountDate >", value, "accountdate");
             return (Criteria) this;
         }
 
-        public Criteria andAccountdateGreaterThanOrEqualTo(String value) {
-            addCriterion("accountDate >=", value, "accountdate");
+        public Criteria andAccountdateGreaterThanOrEqualTo(Date value) {
+            addCriterionForJDBCDate("accountDate >=", value, "accountdate");
             return (Criteria) this;
         }
 
-        public Criteria andAccountdateLessThan(String value) {
-            addCriterion("accountDate <", value, "accountdate");
+        public Criteria andAccountdateLessThan(Date value) {
+            addCriterionForJDBCDate("accountDate <", value, "accountdate");
             return (Criteria) this;
         }
 
-        public Criteria andAccountdateLessThanOrEqualTo(String value) {
-            addCriterion("accountDate <=", value, "accountdate");
+        public Criteria andAccountdateLessThanOrEqualTo(Date value) {
+            addCriterionForJDBCDate("accountDate <=", value, "accountdate");
             return (Criteria) this;
         }
 
-        public Criteria andAccountdateLike(String value) {
-            addCriterion("accountDate like", value, "accountdate");
+        public Criteria andAccountdateIn(List<Date> values) {
+            addCriterionForJDBCDate("accountDate in", values, "accountdate");
             return (Criteria) this;
         }
 
-        public Criteria andAccountdateNotLike(String value) {
-            addCriterion("accountDate not like", value, "accountdate");
+        public Criteria andAccountdateNotIn(List<Date> values) {
+            addCriterionForJDBCDate("accountDate not in", values, "accountdate");
             return (Criteria) this;
         }
 
-        public Criteria andAccountdateIn(List<String> values) {
-            addCriterion("accountDate in", values, "accountdate");
+        public Criteria andAccountdateBetween(Date value1, Date value2) {
+            addCriterionForJDBCDate("accountDate between", value1, value2, "accountdate");
             return (Criteria) this;
         }
 
-        public Criteria andAccountdateNotIn(List<String> values) {
-            addCriterion("accountDate not in", values, "accountdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andAccountdateBetween(String value1, String value2) {
-            addCriterion("accountDate between", value1, value2, "accountdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andAccountdateNotBetween(String value1, String value2) {
-            addCriterion("accountDate not between", value1, value2, "accountdate");
+        public Criteria andAccountdateNotBetween(Date value1, Date value2) {
+            addCriterionForJDBCDate("accountDate not between", value1, value2, "accountdate");
             return (Criteria) this;
         }
 
@@ -664,143 +672,213 @@ public class ExpenseZjExample {
             return (Criteria) this;
         }
 
-        public Criteria andBxMoneyIsNull() {
-            addCriterion("bx_money is null");
+        public Criteria andAccountcommentIsNull() {
+            addCriterion("accountComment is null");
             return (Criteria) this;
         }
 
-        public Criteria andBxMoneyIsNotNull() {
-            addCriterion("bx_money is not null");
+        public Criteria andAccountcommentIsNotNull() {
+            addCriterion("accountComment is not null");
             return (Criteria) this;
         }
 
-        public Criteria andBxMoneyEqualTo(String value) {
-            addCriterion("bx_money =", value, "bxMoney");
+        public Criteria andAccountcommentEqualTo(String value) {
+            addCriterion("accountComment =", value, "accountcomment");
             return (Criteria) this;
         }
 
-        public Criteria andBxMoneyNotEqualTo(String value) {
-            addCriterion("bx_money <>", value, "bxMoney");
+        public Criteria andAccountcommentNotEqualTo(String value) {
+            addCriterion("accountComment <>", value, "accountcomment");
             return (Criteria) this;
         }
 
-        public Criteria andBxMoneyGreaterThan(String value) {
-            addCriterion("bx_money >", value, "bxMoney");
+        public Criteria andAccountcommentGreaterThan(String value) {
+            addCriterion("accountComment >", value, "accountcomment");
             return (Criteria) this;
         }
 
-        public Criteria andBxMoneyGreaterThanOrEqualTo(String value) {
-            addCriterion("bx_money >=", value, "bxMoney");
+        public Criteria andAccountcommentGreaterThanOrEqualTo(String value) {
+            addCriterion("accountComment >=", value, "accountcomment");
             return (Criteria) this;
         }
 
-        public Criteria andBxMoneyLessThan(String value) {
-            addCriterion("bx_money <", value, "bxMoney");
+        public Criteria andAccountcommentLessThan(String value) {
+            addCriterion("accountComment <", value, "accountcomment");
             return (Criteria) this;
         }
 
-        public Criteria andBxMoneyLessThanOrEqualTo(String value) {
-            addCriterion("bx_money <=", value, "bxMoney");
+        public Criteria andAccountcommentLessThanOrEqualTo(String value) {
+            addCriterion("accountComment <=", value, "accountcomment");
             return (Criteria) this;
         }
 
-        public Criteria andBxMoneyLike(String value) {
-            addCriterion("bx_money like", value, "bxMoney");
+        public Criteria andAccountcommentLike(String value) {
+            addCriterion("accountComment like", value, "accountcomment");
             return (Criteria) this;
         }
 
-        public Criteria andBxMoneyNotLike(String value) {
-            addCriterion("bx_money not like", value, "bxMoney");
+        public Criteria andAccountcommentNotLike(String value) {
+            addCriterion("accountComment not like", value, "accountcomment");
             return (Criteria) this;
         }
 
-        public Criteria andBxMoneyIn(List<String> values) {
-            addCriterion("bx_money in", values, "bxMoney");
+        public Criteria andAccountcommentIn(List<String> values) {
+            addCriterion("accountComment in", values, "accountcomment");
             return (Criteria) this;
         }
 
-        public Criteria andBxMoneyNotIn(List<String> values) {
-            addCriterion("bx_money not in", values, "bxMoney");
+        public Criteria andAccountcommentNotIn(List<String> values) {
+            addCriterion("accountComment not in", values, "accountcomment");
             return (Criteria) this;
         }
 
-        public Criteria andBxMoneyBetween(String value1, String value2) {
-            addCriterion("bx_money between", value1, value2, "bxMoney");
+        public Criteria andAccountcommentBetween(String value1, String value2) {
+            addCriterion("accountComment between", value1, value2, "accountcomment");
             return (Criteria) this;
         }
 
-        public Criteria andBxMoneyNotBetween(String value1, String value2) {
-            addCriterion("bx_money not between", value1, value2, "bxMoney");
+        public Criteria andAccountcommentNotBetween(String value1, String value2) {
+            addCriterion("accountComment not between", value1, value2, "accountcomment");
             return (Criteria) this;
         }
 
-        public Criteria andBxJobIsNull() {
-            addCriterion("bx_job is null");
+        public Criteria andBxmoneyIsNull() {
+            addCriterion("bxMoney is null");
             return (Criteria) this;
         }
 
-        public Criteria andBxJobIsNotNull() {
-            addCriterion("bx_job is not null");
+        public Criteria andBxmoneyIsNotNull() {
+            addCriterion("bxMoney is not null");
             return (Criteria) this;
         }
 
-        public Criteria andBxJobEqualTo(String value) {
-            addCriterion("bx_job =", value, "bxJob");
+        public Criteria andBxmoneyEqualTo(String value) {
+            addCriterion("bxMoney =", value, "bxmoney");
             return (Criteria) this;
         }
 
-        public Criteria andBxJobNotEqualTo(String value) {
-            addCriterion("bx_job <>", value, "bxJob");
+        public Criteria andBxmoneyNotEqualTo(String value) {
+            addCriterion("bxMoney <>", value, "bxmoney");
             return (Criteria) this;
         }
 
-        public Criteria andBxJobGreaterThan(String value) {
-            addCriterion("bx_job >", value, "bxJob");
+        public Criteria andBxmoneyGreaterThan(String value) {
+            addCriterion("bxMoney >", value, "bxmoney");
             return (Criteria) this;
         }
 
-        public Criteria andBxJobGreaterThanOrEqualTo(String value) {
-            addCriterion("bx_job >=", value, "bxJob");
+        public Criteria andBxmoneyGreaterThanOrEqualTo(String value) {
+            addCriterion("bxMoney >=", value, "bxmoney");
             return (Criteria) this;
         }
 
-        public Criteria andBxJobLessThan(String value) {
-            addCriterion("bx_job <", value, "bxJob");
+        public Criteria andBxmoneyLessThan(String value) {
+            addCriterion("bxMoney <", value, "bxmoney");
             return (Criteria) this;
         }
 
-        public Criteria andBxJobLessThanOrEqualTo(String value) {
-            addCriterion("bx_job <=", value, "bxJob");
+        public Criteria andBxmoneyLessThanOrEqualTo(String value) {
+            addCriterion("bxMoney <=", value, "bxmoney");
             return (Criteria) this;
         }
 
-        public Criteria andBxJobLike(String value) {
-            addCriterion("bx_job like", value, "bxJob");
+        public Criteria andBxmoneyLike(String value) {
+            addCriterion("bxMoney like", value, "bxmoney");
             return (Criteria) this;
         }
 
-        public Criteria andBxJobNotLike(String value) {
-            addCriterion("bx_job not like", value, "bxJob");
+        public Criteria andBxmoneyNotLike(String value) {
+            addCriterion("bxMoney not like", value, "bxmoney");
             return (Criteria) this;
         }
 
-        public Criteria andBxJobIn(List<String> values) {
-            addCriterion("bx_job in", values, "bxJob");
+        public Criteria andBxmoneyIn(List<String> values) {
+            addCriterion("bxMoney in", values, "bxmoney");
             return (Criteria) this;
         }
 
-        public Criteria andBxJobNotIn(List<String> values) {
-            addCriterion("bx_job not in", values, "bxJob");
+        public Criteria andBxmoneyNotIn(List<String> values) {
+            addCriterion("bxMoney not in", values, "bxmoney");
             return (Criteria) this;
         }
 
-        public Criteria andBxJobBetween(String value1, String value2) {
-            addCriterion("bx_job between", value1, value2, "bxJob");
+        public Criteria andBxmoneyBetween(String value1, String value2) {
+            addCriterion("bxMoney between", value1, value2, "bxmoney");
             return (Criteria) this;
         }
 
-        public Criteria andBxJobNotBetween(String value1, String value2) {
-            addCriterion("bx_job not between", value1, value2, "bxJob");
+        public Criteria andBxmoneyNotBetween(String value1, String value2) {
+            addCriterion("bxMoney not between", value1, value2, "bxmoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andBxjobIsNull() {
+            addCriterion("bxJob is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBxjobIsNotNull() {
+            addCriterion("bxJob is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBxjobEqualTo(String value) {
+            addCriterion("bxJob =", value, "bxjob");
+            return (Criteria) this;
+        }
+
+        public Criteria andBxjobNotEqualTo(String value) {
+            addCriterion("bxJob <>", value, "bxjob");
+            return (Criteria) this;
+        }
+
+        public Criteria andBxjobGreaterThan(String value) {
+            addCriterion("bxJob >", value, "bxjob");
+            return (Criteria) this;
+        }
+
+        public Criteria andBxjobGreaterThanOrEqualTo(String value) {
+            addCriterion("bxJob >=", value, "bxjob");
+            return (Criteria) this;
+        }
+
+        public Criteria andBxjobLessThan(String value) {
+            addCriterion("bxJob <", value, "bxjob");
+            return (Criteria) this;
+        }
+
+        public Criteria andBxjobLessThanOrEqualTo(String value) {
+            addCriterion("bxJob <=", value, "bxjob");
+            return (Criteria) this;
+        }
+
+        public Criteria andBxjobLike(String value) {
+            addCriterion("bxJob like", value, "bxjob");
+            return (Criteria) this;
+        }
+
+        public Criteria andBxjobNotLike(String value) {
+            addCriterion("bxJob not like", value, "bxjob");
+            return (Criteria) this;
+        }
+
+        public Criteria andBxjobIn(List<String> values) {
+            addCriterion("bxJob in", values, "bxjob");
+            return (Criteria) this;
+        }
+
+        public Criteria andBxjobNotIn(List<String> values) {
+            addCriterion("bxJob not in", values, "bxjob");
+            return (Criteria) this;
+        }
+
+        public Criteria andBxjobBetween(String value1, String value2) {
+            addCriterion("bxJob between", value1, value2, "bxjob");
+            return (Criteria) this;
+        }
+
+        public Criteria andBxjobNotBetween(String value1, String value2) {
+            addCriterion("bxJob not between", value1, value2, "bxjob");
             return (Criteria) this;
         }
     }

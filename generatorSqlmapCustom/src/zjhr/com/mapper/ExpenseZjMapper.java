@@ -27,4 +27,9 @@ public interface ExpenseZjMapper {
     int updateByPrimaryKeySelective(ExpenseZj record);
 
     int updateByPrimaryKey(ExpenseZj record);
+    
+    //分页
+    List<ExpenseZj> pageQuery(int start,int rows);
+    //更改审批状态
+    int updateType(String bxid);
 }

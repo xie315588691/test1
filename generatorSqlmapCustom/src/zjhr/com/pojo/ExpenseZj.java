@@ -1,25 +1,29 @@
 package zjhr.com.pojo;
 
+import java.util.Date;
+
 public class ExpenseZj {
     private String bxid;
 
-    private String accountid;
+    private String accountid;//单据编号
 
-    private String accountname;
+    private String accountname;//报销人姓名
 
-    private String expdate;
+    private String expdate;//入职日期
 
-    private String stafftype;
+    private String stafftype;//'0:离职1：在职'
 
-    private String expComment;
+    private String expComment;//报销原因
 
-    private String accountdate;
+    private String accountdate;//报销日期
 
-    private String accouttype="0";//0:未报销1：已报销
+    private String accouttype;//报销状态
 
-    private String bxMoney;//金额
+    private String accountcomment;//审批备注
 
-    private String bxJob;//职位
+    private String bxmoney;//报销金额
+
+    private String bxjob;//报销职位
 
     public String getBxid() {
         return bxid;
@@ -45,13 +49,6 @@ public class ExpenseZj {
         this.accountname = accountname == null ? null : accountname.trim();
     }
 
-    public String getExpdate() {
-        return expdate;
-    }
-
-    public void setExpdate(String expdate) {
-        this.expdate = expdate == null ? null : expdate.trim();
-    }
 
     public String getStafftype() {
         return stafftype;
@@ -69,15 +66,24 @@ public class ExpenseZj {
         this.expComment = expComment == null ? null : expComment.trim();
     }
 
-    public String getAccountdate() {
-        return accountdate;
-    }
 
-    public void setAccountdate(String accountdate) {
-        this.accountdate = accountdate == null ? null : accountdate.trim();
-    }
+    public String getExpdate() {
+		return expdate;
+	}
 
-    public String getAccouttype() {
+	public void setExpdate(String expdate) {
+		this.expdate = expdate;
+	}
+
+	public String getAccountdate() {
+		return accountdate;
+	}
+
+	public void setAccountdate(String accountdate) {
+		this.accountdate = accountdate;
+	}
+
+	public String getAccouttype() {
         return accouttype;
     }
 
@@ -85,19 +91,27 @@ public class ExpenseZj {
         this.accouttype = accouttype == null ? null : accouttype.trim();
     }
 
-    public String getBxMoney() {
-        return bxMoney;
+    public String getAccountcomment() {
+        return accountcomment;
     }
 
-    public void setBxMoney(String bxMoney) {
-        this.bxMoney = bxMoney == null ? null : bxMoney.trim();
+    public void setAccountcomment(String accountcomment) {
+        this.accountcomment = accountcomment == null ? null : accountcomment.trim();
     }
 
-    public String getBxJob() {
-        return bxJob;
+    public String getBxmoney() {
+        return bxmoney;
     }
 
-    public void setBxJob(String bxJob) {
-        this.bxJob = bxJob == null ? null : bxJob.trim();
+    public void setBxmoney(String bxmoney) {
+        this.bxmoney = bxmoney == null ? null : bxmoney.trim();
+    }
+
+    public String getBxjob() {
+        return bxjob;
+    }
+
+    public void setBxjob(String bxjob) {
+        this.bxjob = bxjob == null ? null : bxjob.trim();
     }
 }

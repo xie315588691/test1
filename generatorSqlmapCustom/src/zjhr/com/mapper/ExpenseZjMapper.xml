@@ -5,13 +5,14 @@
     <id column="bxId" property="bxid" jdbcType="VARCHAR" />
     <result column="accountId" property="accountid" jdbcType="VARCHAR" />
     <result column="accountName" property="accountname" jdbcType="VARCHAR" />
-    <result column="expDate" property="expdate" jdbcType="VARCHAR" />
+    <result column="expDate" property="expdate" jdbcType="DATE" />
     <result column="staffType" property="stafftype" jdbcType="CHAR" />
     <result column="exp_comment" property="expComment" jdbcType="VARCHAR" />
-    <result column="accountDate" property="accountdate" jdbcType="VARCHAR" />
+    <result column="accountDate" property="accountdate" jdbcType="DATE" />
     <result column="accoutType" property="accouttype" jdbcType="CHAR" />
-    <result column="bx_money" property="bxMoney" jdbcType="VARCHAR" />
-    <result column="bx_job" property="bxJob" jdbcType="VARCHAR" />
+    <result column="accountComment" property="accountcomment" jdbcType="VARCHAR" />
+    <result column="bxMoney" property="bxmoney" jdbcType="VARCHAR" />
+    <result column="bxJob" property="bxjob" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -73,7 +74,7 @@
   </sql>
   <sql id="Base_Column_List" >
     bxId, accountId, accountName, expDate, staffType, exp_comment, accountDate, accoutType, 
-    bx_money, bx_job
+    accountComment, bxMoney, bxJob
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="zjhr.com.pojo.ExpenseZjExample" >
     select
@@ -108,12 +109,12 @@
   <insert id="insert" parameterType="zjhr.com.pojo.ExpenseZj" >
     insert into expense_zj (bxId, accountId, accountName, 
       expDate, staffType, exp_comment, 
-      accountDate, accoutType, bx_money, 
-      bx_job)
+      accountDate, accoutType, accountComment, 
+      bxMoney, bxJob)
     values (#{bxid,jdbcType=VARCHAR}, #{accountid,jdbcType=VARCHAR}, #{accountname,jdbcType=VARCHAR}, 
-      #{expdate,jdbcType=VARCHAR}, #{stafftype,jdbcType=CHAR}, #{expComment,jdbcType=VARCHAR}, 
-      #{accountdate,jdbcType=VARCHAR}, #{accouttype,jdbcType=CHAR}, #{bxMoney,jdbcType=VARCHAR}, 
-      #{bxJob,jdbcType=VARCHAR})
+      #{expdate,jdbcType=DATE}, #{stafftype,jdbcType=CHAR}, #{expComment,jdbcType=VARCHAR}, 
+      #{accountdate,jdbcType=DATE}, #{accouttype,jdbcType=CHAR}, #{accountcomment,jdbcType=VARCHAR}, 
+      #{bxmoney,jdbcType=VARCHAR}, #{bxjob,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="zjhr.com.pojo.ExpenseZj" >
     insert into expense_zj
@@ -142,11 +143,14 @@
       <if test="accouttype != null" >
         accoutType,
       </if>
-      <if test="bxMoney != null" >
-        bx_money,
+      <if test="accountcomment != null" >
+        accountComment,
       </if>
-      <if test="bxJob != null" >
-        bx_job,
+      <if test="bxmoney != null" >
+        bxMoney,
+      </if>
+      <if test="bxjob != null" >
+        bxJob,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -160,7 +164,7 @@
         #{accountname,jdbcType=VARCHAR},
       </if>
       <if test="expdate != null" >
-        #{expdate,jdbcType=VARCHAR},
+        #{expdate,jdbcType=DATE},
       </if>
       <if test="stafftype != null" >
         #{stafftype,jdbcType=CHAR},
@@ -169,16 +173,19 @@
         #{expComment,jdbcType=VARCHAR},
       </if>
       <if test="accountdate != null" >
-        #{accountdate,jdbcType=VARCHAR},
+        #{accountdate,jdbcType=DATE},
       </if>
       <if test="accouttype != null" >
         #{accouttype,jdbcType=CHAR},
       </if>
-      <if test="bxMoney != null" >
-        #{bxMoney,jdbcType=VARCHAR},
+      <if test="accountcomment != null" >
+        #{accountcomment,jdbcType=VARCHAR},
       </if>
-      <if test="bxJob != null" >
-        #{bxJob,jdbcType=VARCHAR},
+      <if test="bxmoney != null" >
+        #{bxmoney,jdbcType=VARCHAR},
+      </if>
+      <if test="bxjob != null" >
+        #{bxjob,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -201,7 +208,7 @@
         accountName = #{record.accountname,jdbcType=VARCHAR},
       </if>
       <if test="record.expdate != null" >
-        expDate = #{record.expdate,jdbcType=VARCHAR},
+        expDate = #{record.expdate,jdbcType=DATE},
       </if>
       <if test="record.stafftype != null" >
         staffType = #{record.stafftype,jdbcType=CHAR},
@@ -210,16 +217,19 @@
         exp_comment = #{record.expComment,jdbcType=VARCHAR},
       </if>
       <if test="record.accountdate != null" >
-        accountDate = #{record.accountdate,jdbcType=VARCHAR},
+        accountDate = #{record.accountdate,jdbcType=DATE},
       </if>
       <if test="record.accouttype != null" >
         accoutType = #{record.accouttype,jdbcType=CHAR},
       </if>
-      <if test="record.bxMoney != null" >
-        bx_money = #{record.bxMoney,jdbcType=VARCHAR},
+      <if test="record.accountcomment != null" >
+        accountComment = #{record.accountcomment,jdbcType=VARCHAR},
       </if>
-      <if test="record.bxJob != null" >
-        bx_job = #{record.bxJob,jdbcType=VARCHAR},
+      <if test="record.bxmoney != null" >
+        bxMoney = #{record.bxmoney,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bxjob != null" >
+        bxJob = #{record.bxjob,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -231,13 +241,14 @@
     set bxId = #{record.bxid,jdbcType=VARCHAR},
       accountId = #{record.accountid,jdbcType=VARCHAR},
       accountName = #{record.accountname,jdbcType=VARCHAR},
-      expDate = #{record.expdate,jdbcType=VARCHAR},
+      expDate = #{record.expdate,jdbcType=DATE},
       staffType = #{record.stafftype,jdbcType=CHAR},
       exp_comment = #{record.expComment,jdbcType=VARCHAR},
-      accountDate = #{record.accountdate,jdbcType=VARCHAR},
+      accountDate = #{record.accountdate,jdbcType=DATE},
       accoutType = #{record.accouttype,jdbcType=CHAR},
-      bx_money = #{record.bxMoney,jdbcType=VARCHAR},
-      bx_job = #{record.bxJob,jdbcType=VARCHAR}
+      accountComment = #{record.accountcomment,jdbcType=VARCHAR},
+      bxMoney = #{record.bxmoney,jdbcType=VARCHAR},
+      bxJob = #{record.bxjob,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -252,7 +263,7 @@
         accountName = #{accountname,jdbcType=VARCHAR},
       </if>
       <if test="expdate != null" >
-        expDate = #{expdate,jdbcType=VARCHAR},
+        expDate = #{expdate,jdbcType=DATE},
       </if>
       <if test="stafftype != null" >
         staffType = #{stafftype,jdbcType=CHAR},
@@ -261,16 +272,19 @@
         exp_comment = #{expComment,jdbcType=VARCHAR},
       </if>
       <if test="accountdate != null" >
-        accountDate = #{accountdate,jdbcType=VARCHAR},
+        accountDate = #{accountdate,jdbcType=DATE},
       </if>
       <if test="accouttype != null" >
         accoutType = #{accouttype,jdbcType=CHAR},
       </if>
-      <if test="bxMoney != null" >
-        bx_money = #{bxMoney,jdbcType=VARCHAR},
+      <if test="accountcomment != null" >
+        accountComment = #{accountcomment,jdbcType=VARCHAR},
       </if>
-      <if test="bxJob != null" >
-        bx_job = #{bxJob,jdbcType=VARCHAR},
+      <if test="bxmoney != null" >
+        bxMoney = #{bxmoney,jdbcType=VARCHAR},
+      </if>
+      <if test="bxjob != null" >
+        bxJob = #{bxjob,jdbcType=VARCHAR},
       </if>
     </set>
     where bxId = #{bxid,jdbcType=VARCHAR}
@@ -279,13 +293,17 @@
     update expense_zj
     set accountId = #{accountid,jdbcType=VARCHAR},
       accountName = #{accountname,jdbcType=VARCHAR},
-      expDate = #{expdate,jdbcType=VARCHAR},
+      expDate = #{expdate,jdbcType=DATE},
       staffType = #{stafftype,jdbcType=CHAR},
       exp_comment = #{expComment,jdbcType=VARCHAR},
-      accountDate = #{accountdate,jdbcType=VARCHAR},
+      accountDate = #{accountdate,jdbcType=DATE},
       accoutType = #{accouttype,jdbcType=CHAR},
-      bx_money = #{bxMoney,jdbcType=VARCHAR},
-      bx_job = #{bxJob,jdbcType=VARCHAR}
+      accountComment = #{accountcomment,jdbcType=VARCHAR},
+      bxMoney = #{bxmoney,jdbcType=VARCHAR},
+      bxJob = #{bxjob,jdbcType=VARCHAR}
     where bxId = #{bxid,jdbcType=VARCHAR}
   </update>
+  <select id="pageQuery" resultMap="BaseResultMap" >
+    SELECT * FROM expense_zj ORDER BY bxId DESC LIMIT #{0},#{1}
+  </select>
 </mapper>
