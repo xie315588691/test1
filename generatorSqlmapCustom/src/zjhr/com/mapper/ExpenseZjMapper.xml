@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="zjhr.com.mapper.ExpenseZjMapper" >
+  <resultMap id="BaseResultMap" type="zjhr.com.pojo.ExpenseZj" >
+    <id column="bxId" property="bxid" jdbcType="VARCHAR" />
+    <result column="accountId" property="accountid" jdbcType="VARCHAR" />
+    <result column="accountName" property="accountname" jdbcType="VARCHAR" />
+    <result column="expDate" property="expdate" jdbcType="VARCHAR" />
+    <result column="staffType" property="stafftype" jdbcType="CHAR" />
+    <result column="exp_comment" property="expComment" jdbcType="VARCHAR" />
+    <result column="accountDate" property="accountdate" jdbcType="VARCHAR" />
+    <result column="accoutType" property="accouttype" jdbcType="CHAR" />
+    <result column="bx_money" property="bxMoney" jdbcType="VARCHAR" />
+    <result column="bx_job" property="bxJob" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    bxId, accountId, accountName, expDate, staffType, exp_comment, accountDate, accoutType, 
+    bx_money, bx_job
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="zjhr.com.pojo.ExpenseZjExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from expense_zj
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from expense_zj
+    where bxId = #{bxid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from expense_zj
+    where bxId = #{bxid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="zjhr.com.pojo.ExpenseZjExample" >
+    delete from expense_zj
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="zjhr.com.pojo.ExpenseZj" >
+    insert into expense_zj (bxId, accountId, accountName, 
+      expDate, staffType, exp_comment, 
+      accountDate, accoutType, bx_money, 
+      bx_job)
+    values (#{bxid,jdbcType=VARCHAR}, #{accountid,jdbcType=VARCHAR}, #{accountname,jdbcType=VARCHAR}, 
+      #{expdate,jdbcType=VARCHAR}, #{stafftype,jdbcType=CHAR}, #{expComment,jdbcType=VARCHAR}, 
+      #{accountdate,jdbcType=VARCHAR}, #{accouttype,jdbcType=CHAR}, #{bxMoney,jdbcType=VARCHAR}, 
+      #{bxJob,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="zjhr.com.pojo.ExpenseZj" >
+    insert into expense_zj
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bxid != null" >
+        bxId,
+      </if>
+      <if test="accountid != null" >
+        accountId,
+      </if>
+      <if test="accountname != null" >
+        accountName,
+      </if>
+      <if test="expdate != null" >
+        expDate,
+      </if>
+      <if test="stafftype != null" >
+        staffType,
+      </if>
+      <if test="expComment != null" >
+        exp_comment,
+      </if>
+      <if test="accountdate != null" >
+        accountDate,
+      </if>
+      <if test="accouttype != null" >
+        accoutType,
+      </if>
+      <if test="bxMoney != null" >
+        bx_money,
+      </if>
+      <if test="bxJob != null" >
+        bx_job,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bxid != null" >
+        #{bxid,jdbcType=VARCHAR},
+      </if>
+      <if test="accountid != null" >
+        #{accountid,jdbcType=VARCHAR},
+      </if>
+      <if test="accountname != null" >
+        #{accountname,jdbcType=VARCHAR},
+      </if>
+      <if test="expdate != null" >
+        #{expdate,jdbcType=VARCHAR},
+      </if>
+      <if test="stafftype != null" >
+        #{stafftype,jdbcType=CHAR},
+      </if>
+      <if test="expComment != null" >
+        #{expComment,jdbcType=VARCHAR},
+      </if>
+      <if test="accountdate != null" >
+        #{accountdate,jdbcType=VARCHAR},
+      </if>
+      <if test="accouttype != null" >
+        #{accouttype,jdbcType=CHAR},
+      </if>
+      <if test="bxMoney != null" >
+        #{bxMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="bxJob != null" >
+        #{bxJob,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="zjhr.com.pojo.ExpenseZjExample" resultType="java.lang.Integer" >
+    select count(*) from expense_zj
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update expense_zj
+    <set >
+      <if test="record.bxid != null" >
+        bxId = #{record.bxid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accountid != null" >
+        accountId = #{record.accountid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accountname != null" >
+        accountName = #{record.accountname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.expdate != null" >
+        expDate = #{record.expdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stafftype != null" >
+        staffType = #{record.stafftype,jdbcType=CHAR},
+      </if>
+      <if test="record.expComment != null" >
+        exp_comment = #{record.expComment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accountdate != null" >
+        accountDate = #{record.accountdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accouttype != null" >
+        accoutType = #{record.accouttype,jdbcType=CHAR},
+      </if>
+      <if test="record.bxMoney != null" >
+        bx_money = #{record.bxMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bxJob != null" >
+        bx_job = #{record.bxJob,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update expense_zj
+    set bxId = #{record.bxid,jdbcType=VARCHAR},
+      accountId = #{record.accountid,jdbcType=VARCHAR},
+      accountName = #{record.accountname,jdbcType=VARCHAR},
+      expDate = #{record.expdate,jdbcType=VARCHAR},
+      staffType = #{record.stafftype,jdbcType=CHAR},
+      exp_comment = #{record.expComment,jdbcType=VARCHAR},
+      accountDate = #{record.accountdate,jdbcType=VARCHAR},
+      accoutType = #{record.accouttype,jdbcType=CHAR},
+      bx_money = #{record.bxMoney,jdbcType=VARCHAR},
+      bx_job = #{record.bxJob,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="zjhr.com.pojo.ExpenseZj" >
+    update expense_zj
+    <set >
+      <if test="accountid != null" >
+        accountId = #{accountid,jdbcType=VARCHAR},
+      </if>
+      <if test="accountname != null" >
+        accountName = #{accountname,jdbcType=VARCHAR},
+      </if>
+      <if test="expdate != null" >
+        expDate = #{expdate,jdbcType=VARCHAR},
+      </if>
+      <if test="stafftype != null" >
+        staffType = #{stafftype,jdbcType=CHAR},
+      </if>
+      <if test="expComment != null" >
+        exp_comment = #{expComment,jdbcType=VARCHAR},
+      </if>
+      <if test="accountdate != null" >
+        accountDate = #{accountdate,jdbcType=VARCHAR},
+      </if>
+      <if test="accouttype != null" >
+        accoutType = #{accouttype,jdbcType=CHAR},
+      </if>
+      <if test="bxMoney != null" >
+        bx_money = #{bxMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="bxJob != null" >
+        bx_job = #{bxJob,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where bxId = #{bxid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="zjhr.com.pojo.ExpenseZj" >
+    update expense_zj
+    set accountId = #{accountid,jdbcType=VARCHAR},
+      accountName = #{accountname,jdbcType=VARCHAR},
+      expDate = #{expdate,jdbcType=VARCHAR},
+      staffType = #{stafftype,jdbcType=CHAR},
+      exp_comment = #{expComment,jdbcType=VARCHAR},
+      accountDate = #{accountdate,jdbcType=VARCHAR},
+      accoutType = #{accouttype,jdbcType=CHAR},
+      bx_money = #{bxMoney,jdbcType=VARCHAR},
+      bx_job = #{bxJob,jdbcType=VARCHAR}
+    where bxId = #{bxid,jdbcType=VARCHAR}
+  </update>
+</mapper>
